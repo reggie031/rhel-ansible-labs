@@ -1,0 +1,21 @@
+---
+- name: Install common packages
+  ansible.builtin.dnf:
+    name:
+      - vim
+      - curl
+      - wget
+      - net-tools
+      - bash-completion
+    state: present 
+
+- name: Set timezone
+  ansible.builtin.timezone:
+    name: America/Chicago
+
+- name: Ensure firewalld is running
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
+

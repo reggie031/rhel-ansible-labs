@@ -1,0 +1,19 @@
+---
+- name: Adavanced Playbook
+  hosts: webservers
+  become: true
+  vars:
+    web_port: 8080
+    web_root: /var/www/html
+  tasks:
+   - name: Set custom port in httpd.conf
+     ansible.builtin.lineinfile:
+       path: /etc/httpd/conf/httpd.conf
+       regexp: '#Listen '
+       line: "Listen {{ web_port }}"
+     notify: Restart httpd
+  handlers:
+    - name: Restart httpd
+      ansible.builtin.service:
+        name: httpd
+        state: restarted

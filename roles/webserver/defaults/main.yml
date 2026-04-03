@@ -1,0 +1,4 @@
+---
+web_admin_email: admin@lab.local
+web_server_name: "{{ inventory_hostname }}"
+

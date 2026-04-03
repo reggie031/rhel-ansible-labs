@@ -1,0 +1,3 @@
+---
+admin_email: "{{ vault_admin_email }}"
+db_password: "{{ vault_db_password }}"

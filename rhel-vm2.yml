@@ -1,0 +1,38 @@
+---
+- name: Full configuration for VM2
+  hosts: rhel-vm2
+  become: true
+  roles:
+    - common
+    - webserver
+  tasks:
+    - name: Create admin user
+      ansible.builtin.user:
+        name: ansibleadmin
+        groups: wheel
+        append: true
+        state: present
+        create_home: true
+
+    - name: Set password policy
+      ansible.builtin.lineinfile:
+        path: /etc/login.defs
+        regexp: '^PASS_MAX_DAYS'
+        line: 'PASS_MAX_DAYS   90'
+
+    - name: Disable root SSH login
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin no'
+      notify: Restart sshd
+
+    - name: Set hostname
+      ansible.builtin.hostname:
+        name: rhel-vm.lab.local
+
+  handlers:
+    - name: Restart sshd
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
