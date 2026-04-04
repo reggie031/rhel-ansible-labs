@@ -11,17 +11,18 @@ pipeline {
 
         stage('Validate Playbook') {
             steps {
-                echo 'Validating Anisble Playbook...'
+                echo 'Validating Ansible Playbook...'
                 sh 'ansible-playbook --syntax-check -i inventory.ini rhel-vm2.yml'
             }
         }
+    }
 
-        post {
-            success {
-                echo 'Deployment successful!'
-            }
-            failure {
-                echo 'Deployment failed!'
-            }
+    post {
+        success {
+            echo 'Deployment successful!'
         }
+        failure {
+            echo 'Deployment failed!'
+        }
+    }
 }
