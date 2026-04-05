@@ -17,7 +17,6 @@ pipeline {
         }
     }
 
-    // The post block is outside of the stages block
     post {
         success {
             echo 'Deployment successful!'
