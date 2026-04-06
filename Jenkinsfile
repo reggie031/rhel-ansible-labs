@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out code from VM1...'
-                git url: 'git@VM1_IP:/srv/git/ops-scripts.git', branch: 'main', credentialsId: 'your-credentials-id'
+                checkout scm
             }
         }
 
