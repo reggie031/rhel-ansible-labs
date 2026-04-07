@@ -15,9 +15,9 @@ jobs:
 
       - name: Install Ansible
         run: |
-           sudo yum update -y
-           sudo yum install -y epel-release
-           sudo yum install -y ansible
+           sudo dnf update -y
+           sudo dnf install -y epel-release
+           sudo dnf install -y ansible
 
       - name: Create vault password file
         run: |
