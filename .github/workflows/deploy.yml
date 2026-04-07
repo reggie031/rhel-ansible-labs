@@ -20,16 +20,15 @@ jobs:
 
       - name: Create vault password file
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.VAULT_PASSWORD }}" > ~/.vault
+          echo "${{ secrets.VAULT_PASSWORD }}" > ~/.vault_pass
 
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ed25519
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
 
-      - name: Add VM2 to know hosts
+      - name: Add VM2 to known hosts
         run: |
           ssh-keyscan 192.168.10.3 >> ~/.ssh/known_hosts
      
