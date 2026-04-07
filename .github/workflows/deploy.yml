@@ -1,0 +1,41 @@
+name: Ansible CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Create vault password file
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VAULT_PASSWORD }}" > ~/.vault
+
+      - name: Create SSH key
+        run |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Add VM2 to know hosts
+        run: |
+          ssh-keyscan 192.168.10.3 >> ~/.ssh/known_hosts
+     
+      - name: Validate Playbook
+        run: |
+          ansible-playbook --syntax-check -i inventory.ini rhel-vm2.yml
+
+      - name: Deploy to VM2
+        run: ansible-playbook -i inventory.ini rhel-vm2.yml --vault-password-file ~/.vault_pass 
