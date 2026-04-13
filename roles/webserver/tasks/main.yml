@@ -12,7 +12,7 @@
    notify: Restart httpd
 
  - name: Open firewall for http
-   ansible.posix.firewalld:
+   ansible.builtin.service:
      service: http
      permanent: true
      state: enabled
