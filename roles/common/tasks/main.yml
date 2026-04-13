@@ -9,10 +9,6 @@
       - bash-completion
     state: present
 
-- name: Set timezone
-  ansible.builtin.timezone:
-    name: America/Chicago
-
 - name: Ensure firewalld is running
   ansible.posix.firewalld:
     service: http
