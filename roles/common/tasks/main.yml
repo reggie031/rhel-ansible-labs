@@ -7,15 +7,15 @@
       - wget
       - net-tools
       - bash-completion
-    state: present 
+    state: present
 
 - name: Set timezone
   ansible.builtin.timezone:
     name: America/Chicago
 
 - name: Ensure firewalld is running
-  ansible.builtin.service:
-    name: firewalld
-    state: started
-    enabled: true
-
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: yes

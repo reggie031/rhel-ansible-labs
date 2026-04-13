@@ -18,10 +18,6 @@ jobs:
            sudo dnf update -y
            sudo dnf install -y ansible-core
 
-      - name: Install Ansible collections
-        run: |
-           ansible-galaxy collection install -r requirements.yml
-
       - name: Create vault password file
         run: |
           echo "${{ secrets.VAULT_PASSWORD }}" > ~/.vault_pass

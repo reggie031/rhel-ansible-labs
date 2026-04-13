@@ -1,0 +1,4 @@
+---
+collecitons:
+  - name: community.general
+  - name: ansible.posix
