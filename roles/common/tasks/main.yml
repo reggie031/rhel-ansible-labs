@@ -10,7 +10,7 @@
     state: present
 
 - name: Ensure firewalld is running
-  ansible.builtin.service.firewalld:
+  ansible.builtin.service:
     service: http
     permanent: true
     state: enabled
