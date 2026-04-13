@@ -19,7 +19,8 @@ jobs:
            sudo dnf install -y ansible-core
 
       - name: Install Ansible collections
-        run: ansible-galaxy collection install -r requirements.yml
+        run: |
+           ansible-galaxy collection install -r requirements.yml
 
       - name: Create vault password file
         run: |
