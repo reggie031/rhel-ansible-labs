@@ -11,12 +11,11 @@
      enabled: true
    notify: Restart httpd
 
- - name: Open firewall for http
-   ansible.builtin.service:
-     service: http
-     permanent: true
-     state: enabled
-     immediate: true
+ - name: Open firewall port 80
+   ansible.builtin.command: firewall-cmd --permanent --add-port=80/tcp
+
+ - name: Reload firewall
+   ansible.builtin.command: firewall-cmd --reload
 
  - name: Deploy index page
    ansible.builtin.template:
